@@ -53,6 +53,9 @@ Here are a few examples of how to use `paramspider`:
   ```sh
   paramspider -l domains.txt
   ```
+  ```sh
+  paramspider -l domains.txt -o one/output/file.txt
+  ```
 
 - Stream URLs on the termial:
 
