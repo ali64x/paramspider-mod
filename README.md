@@ -25,7 +25,7 @@
 To install `paramspider`, follow these steps:
 
 ```sh
-git clone https://github.com/devanshbatham/paramspider
+git clone https://github.com/ali64x/paramspider-mod.git
 cd paramspider
 pip install .
 ```
