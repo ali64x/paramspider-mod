@@ -4,6 +4,7 @@ import json
 import logging
 import time
 import sys
+import os
 
 
 
@@ -35,7 +36,7 @@ def load_user_agents():
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.81 Safari/537.36"
   ]
 
-def fetch_url_content(url,proxy):
+def fetch_url_content(url,proxy,domain):
     """
     Fetches the content of a URL using a random user agent.
     Retries up to MAX_RETRIES times if the request fails.
@@ -62,7 +63,8 @@ def fetch_url_content(url,proxy):
         except KeyboardInterrupt:
             logging.warning("Keyboard Interrupt received. Exiting gracefully...")
             sys.exit()
-
+    with open(os.path.abspath("skipped_by_paramspider.txt"), "a+",encoding='utf-8') as fp:
+        fp.write(domain+'\n')
     logging.error(f"Failed to fetch URL {url} after {MAX_RETRIES} retries, url skipped")
     
     # sys.exit()

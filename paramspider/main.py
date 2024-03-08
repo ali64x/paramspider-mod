@@ -21,7 +21,9 @@ HARDCODED_EXTENSIONS = [
     ".jpg", ".jpeg", ".png", ".gif", ".pdf", ".svg", ".json",
     ".css", ".js", ".webp", ".woff", ".woff2", ".eot", ".ttf", ".otf", ".mp4", ".txt"
 ]
-
+with open(os.path.abspath("skipped_by_paramspider.txt"), "w",encoding='utf-8') as fp:
+        fp.write('')
+        
 def has_extension(url, extensions):
     """
     Check if the URL has a file extension matching any of the provided extensions.
@@ -93,7 +95,7 @@ def fetch_and_clean_urls(domain, extensions, stream_output,proxy, placeholder, o
     """
     logging.info(f"{Fore.YELLOW}[INFO]{Style.RESET_ALL} Fetching URLs for {Fore.CYAN + domain + Style.RESET_ALL}")
     wayback_uri = f"https://web.archive.org/cdx/search/cdx?url={domain}/*&output=txt&collapse=urlkey&fl=original&page=/"
-    response = client.fetch_url_content(wayback_uri,proxy)
+    response = client.fetch_url_content(wayback_uri,proxy,domain)
     if response :
         urls = response.text.split()
         logging.info(f"{Fore.YELLOW}[INFO]{Style.RESET_ALL} Found {Fore.GREEN + str(len(urls)) + Style.RESET_ALL} URLs for {Fore.CYAN + domain + Style.RESET_ALL}")
@@ -180,7 +182,7 @@ def main():
     if args.list:
         for domain in domains:
             fetch_and_clean_urls(domain, extensions, args.stream,args.proxy, args.placeholder,args.output)
-            time.sleep(0.5)
+            time.sleep(1)
             
 if __name__ == "__main__":
     main()
